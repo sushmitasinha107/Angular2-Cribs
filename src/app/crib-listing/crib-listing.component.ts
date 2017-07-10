@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {cribs} from './../data/cribs';
+import { Http } from '@angular/http';
+import {CribsService} from './../services/cribs.service';
+import { Crib } from './../crib';
+
 @Component({
   selector: 'app-crib-listing',
   templateUrl: './crib-listing.component.html',
@@ -7,10 +10,13 @@ import {cribs} from './../data/cribs';
 })
 export class CribListingComponent implements OnInit {
 
-  cribs: Array<any> = cribs;
-  constructor() { }
-
+  cribs: Array<any>;
+  error: string;
+  constructor(private http: Http, private cribsService: CribsService) {
+   }
   ngOnInit() {
-  }
+    this.cribsService.getAllCribs().subscribe(data => this.cribs = data );
+}
+
 
 }
